@@ -299,9 +299,9 @@ result_generator = click_train(
     version,
 )
 
-weights_dir = "weights/%s" % model_name
-os.makedirs(weights_dir, exist_ok=True)
-subprocess.run(["cp", "Retrieval_based_Voice_Conversion_WebUI/logs/%s/added_*.index" %exp_dir, weights_dir])
-subprocess.run(["cp", "Retrieval_based_Voice_Conversion_WebUI/logs/%s/total_*.npy" %exp_dir, weights_dir])
-subprocess.run(["cp", "Retrieval_based_Voice_Conversion_WebUI/assets/weights/%s.pth " %exp_dir, weights_dir])
+#weights_dir = "weights/%s" % model_name
+#os.makedirs(weights_dir, exist_ok=True)
+#subprocess.run(["cp", "Retrieval_based_Voice_Conversion_WebUI/logs/%s/added_*.index" %exp_dir, weights_dir])
+#subprocess.run(["cp", "Retrieval_based_Voice_Conversion_WebUI/logs/%s/total_*.npy" %exp_dir, weights_dir])
+#subprocess.run(["cp", "Retrieval_based_Voice_Conversion_WebUI/assets/weights/%s.pth " %exp_dir, weights_dir])
 
