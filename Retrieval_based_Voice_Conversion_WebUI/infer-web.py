@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 now_dir = os.getcwd()
 sys.path.append(now_dir)
 load_dotenv()
+load_dotenv("sha256.env")
 from infer.modules.vc.modules import VC
 from infer.modules.uvr5.modules import uvr
 from infer.lib.train.process_ckpt import (
@@ -53,6 +54,15 @@ torch.manual_seed(114514)
 config = Config()
 vc = VC(config)
 
+if not config.nocheck:
+    from infer.lib.rvcmd import check_all_assets, download_all_assets
+
+    if not check_all_assets(update=config.update):
+        if config.update:
+            download_all_assets(tmpdir=tmp)
+            if not check_all_assets(update=config.update):
+                logging.error("counld not satisfy all assets needed.")
+                exit(1)
 
 if config.dml == True:
 
@@ -1598,13 +1608,16 @@ with gr.Blocks(title="RVC WebUI") as app:
             except:
                 gr.Markdown(traceback.format_exc())
 
-    if config.iscolab:
-        app.queue(max_size=1022).launch(share=True, max_threads=511)
-    else:
-        app.queue(max_size=1022).launch(
-            max_threads=511,
-            server_name="0.0.0.0",
-            inbrowser=not config.noautoopen,
-            server_port=config.listen_port,
-            quiet=True,
-        )
+    try:
+        if config.iscolab:
+            app.queue(max_size=1022).launch(share=True, max_threads=511)
+        else:
+            app.queue(max_size=1022).launch(
+                max_threads=511,
+                server_name="0.0.0.0",
+                inbrowser=not config.noautoopen,
+                server_port=config.listen_port,
+                quiet=True,
+            )
+    except Exception as e:
+        logger.error(str(e))

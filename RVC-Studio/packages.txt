@@ -1,5 +1,0 @@
-ffmpeg
-espeak
-libportaudio2
-portaudio19-dev
-python3-all-dev
