@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from database.recommend import get_db
+from database.model import get_db
 from crud.model import get_model
 from schemas.model import Model
 
